@@ -3,16 +3,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="google-site-verification" content="vlT-uXzMH5J1TTwk1KmPCj-UoalFkLs5a0PQg2A0oRk" />
+<meta name="google-site-verification" content="vlT-uXzMH5J1TTwk1KmPCj-UoalFkLs5a0PQg2A0oRk">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Fortnite Status | Live Server Status</title>
-<meta name="description"
-content="Check Fortnite server status, live player count,
-matchmaking availability and current service outages.">
 
+<meta name="description" content="Check Fortnite server status, live player count, matchmaking availability, current service outages and today's Item Shop.">
 <meta name="robots" content="index, follow">
-<style>
 
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
@@ -48,13 +47,14 @@ body {
 /* NAVBAR */
 
 nav {
-  height: 78px;
-  padding: 0 8%;
+  min-height: 78px;
+  padding: 15px 8%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
   border-bottom: 1px solid var(--border);
-  background: rgba(7, 9, 16, .75);
+  background: rgba(7, 9, 16, .85);
   backdrop-filter: blur(20px);
   position: sticky;
   top: 0;
@@ -65,6 +65,7 @@ nav {
   font-size: 22px;
   font-weight: 900;
   letter-spacing: -1.3px;
+  white-space: nowrap;
 }
 
 .logo span {
@@ -74,7 +75,9 @@ nav {
 
 .nav-links {
   display: flex;
-  gap: 32px;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .nav-links a {
@@ -95,7 +98,8 @@ nav {
 .container {
   width: 90%;
   max-width: 1050px;
-  margin: 85px auto;
+  margin: 75px auto;
+  animation: appear .8s ease both;
 }
 
 .eyebrow {
@@ -124,6 +128,45 @@ h1 {
   line-height: 1.8;
 }
 
+/* SECTION HEADINGS */
+
+.section-heading {
+  margin: 50px 0 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-heading h2 {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -.4px;
+}
+
+.section-heading span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* PANELS */
+
+.panel {
+  background: var(--panel);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 15px 45px #00000020;
+  transition: .3s;
+}
+
+.panel:hover {
+  border-color: #448aff35;
+}
+
 /* OVERALL STATUS */
 
 .overall {
@@ -137,10 +180,8 @@ h1 {
   gap: 20px;
   border-radius: 17px;
   border: 1px solid #35f2a033;
-  background:
-    linear-gradient(110deg, #102d2a, #10232a 60%, #111a2a);
+  background: linear-gradient(110deg, #102d2a, #10232a 60%, #111a2a);
   box-shadow: 0 0 40px #35f2a00c;
-  transition: .3s;
 }
 
 .overall::after {
@@ -219,44 +260,6 @@ h1 {
   50% { opacity: .5; }
 }
 
-/* SECTION HEADINGS */
-
-.section-heading {
-  margin: 50px 0 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.section-heading h2 {
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: -.4px;
-}
-
-.section-heading span {
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-/* PANELS */
-
-.panel {
-  background: var(--panel);
-  backdrop-filter: blur(18px);
-  border: 1px solid var(--border);
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 15px 45px #00000020;
-  transition: .3s;
-}
-
-.panel:hover {
-  border-color: #448aff35;
-}
-
 /* SERVICE ROWS */
 
 .service {
@@ -276,7 +279,6 @@ h1 {
 
 .service:hover {
   background: rgba(68,138,255,.07);
-  padding-left: 29px;
 }
 
 .service-name {
@@ -336,8 +338,6 @@ h1 {
   margin-top: 13px;
 }
 
-/* EMPTY STATES */
-
 .empty {
   padding: 32px;
   text-align: center;
@@ -346,106 +346,7 @@ h1 {
   font-weight: 700;
 }
 
-/* FOOTER */
-
-footer {
-  margin-top: 100px;
-  padding: 30px 8%;
-  border-top: 1px solid var(--border);
-  background: rgba(7,9,16,.7);
-  color: var(--muted);
-  font-size: 11px;
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-footer a {
-  color: #8ebaff;
-  text-decoration: none;
-  transition: .2s;
-}
-
-footer a:hover {
-  color: white;
-}
-
-/* ANIMATIONS */
-
-.container {
-  animation: appear .8s ease both;
-}
-
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* MOBILE */
-
-@media(max-width: 650px) {
-  nav {
-    padding: 0 5%;
-    height: 68px;
-  }
-
-  .logo {
-    font-size: 17px;
-  }
-
-  .nav-links {
-    gap: 13px;
-  }
-
-  .nav-links a {
-    font-size: 10px;
-  }
-
-  .container {
-    width: 91%;
-    margin: 55px auto;
-  }
-
-  h1 {
-    letter-spacing: -2px;
-  }
-
-  .overall {
-    padding: 23px;
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .service {
-    padding: 17px;
-  }
-
-  .service-name {
-    font-size: 11px;
-  }
-
-  .service-status {
-    font-size: 10px;
-  }
-
-  footer {
-    flex-direction: column;
-    margin-top: 65px;
-  }
-}
-
-@media(prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* PLAYER COUNT */
 
 .player-card {
   margin-top: 20px;
@@ -468,7 +369,7 @@ footer a:hover {
 }
 
 .player-label {
-  color: #00d9ff;
+  color: var(--cyan);
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 2px;
@@ -483,7 +384,7 @@ footer a:hover {
   display: flex;
   align-items: center;
   gap: 9px;
-  color: #35f2a0;
+  color: var(--green);
   font-size: 10px;
   font-weight: 800;
 }
@@ -529,24 +430,40 @@ footer a:hover {
   margin-top: 17px;
 }
 
-@media(max-width:600px) {
-  .player-card { padding: 21px; }
-  .player-bottom { font-size: 9px; }
+/* ITEM SHOP */
+
+.shop-hidden {
+  display: none !important;
 }
-  /* ITEM SHOP */
 
 .shop-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
   gap: 18px;
 }
 
+.shop-section {
+  margin-top: 30px;
+}
+
+.shop-section:first-child {
+  margin-top: 0;
+}
+
+.shop-section h2 {
+  font-size: 17px;
+  margin: 0 0 15px;
+}
+
 .shop-item {
+  padding: 0;
   background: #111a2d;
   border: 1px solid var(--border);
   border-radius: 13px;
   overflow: hidden;
   transition: .25s;
+  font-family: Inter, sans-serif;
+  cursor: pointer;
 }
 
 .shop-item:hover {
@@ -555,6 +472,7 @@ footer a:hover {
 }
 
 .shop-item img {
+  display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -566,6 +484,7 @@ footer a:hover {
 }
 
 .shop-item-info h3 {
+  color: white;
   font-size: 13px;
   margin: 0 0 8px;
 }
@@ -574,20 +493,16 @@ footer a:hover {
   color: var(--cyan);
   font-size: 12px;
   font-weight: 800;
-  margin: 0;
+  margin: 0 0 8px;
 }
 
-.shop-section {
-  margin-top: 30px;
-}
-
-.shop-section h2 {
-  font-size: 17px;
-  margin-bottom: 15px;
+.shop-badge {
+  color: var(--green);
+  font-size: 10px;
 }
 
 .shop-attribution {
-  margin-top: 25px;
+  margin-top: 15px;
   font-size: 11px;
   color: var(--muted);
 }
@@ -596,11 +511,47 @@ footer a:hover {
   color: var(--cyan);
 }
 
-.shop-badge {
-  color: var(--green);
-  font-size: 10px;
+.shop-loading {
+  padding: 35px 15px;
+  text-align: center;
+  color: var(--muted);
 }
-  /* ITEM DETAILS POPUP */
+
+.shop-loading h2 {
+  color: white;
+  font-size: 17px;
+}
+
+.shop-loading p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.shop-spinner {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 18px;
+  border: 4px solid #ffffff20;
+  border-top-color: var(--cyan);
+  border-radius: 50%;
+  animation: shop-spin .8s linear infinite;
+}
+
+@keyframes shop-spin {
+  to { transform: rotate(360deg); }
+}
+
+.shop-retry {
+  padding: 11px 18px;
+  background: var(--blue);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ITEM DETAILS POPUP */
 
 .item-modal {
   position: fixed;
@@ -621,6 +572,8 @@ footer a:hover {
 .item-modal-content {
   width: 100%;
   max-width: 430px;
+  max-height: 90vh;
+  overflow-y: auto;
   background: #111a2d;
   border: 1px solid var(--cyan);
   border-radius: 18px;
@@ -661,6 +614,118 @@ footer a:hover {
   font-size: 26px;
   cursor: pointer;
 }
+
+/* FOOTER */
+
+footer {
+  margin-top: 100px;
+  padding: 30px 8%;
+  border-top: 1px solid var(--border);
+  background: rgba(7,9,16,.7);
+  color: var(--muted);
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+footer a {
+  color: #8ebaff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: white;
+}
+
+/* ANIMATIONS */
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+
+@media(max-width: 650px) {
+  nav {
+    padding: 14px 5%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 17px;
+  }
+
+  .nav-links {
+    gap: 13px;
+    justify-content: flex-start;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+  }
+
+  .container {
+    width: 91%;
+    margin: 45px auto;
+  }
+
+  h1 {
+    letter-spacing: -2px;
+  }
+
+  .overall {
+    padding: 23px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .service {
+    padding: 17px;
+  }
+
+  .service-name {
+    font-size: 11px;
+  }
+
+  .service-status {
+    font-size: 10px;
+  }
+
+  .player-card {
+    padding: 21px;
+  }
+
+  .player-bottom {
+    font-size: 9px;
+  }
+
+  .shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  footer {
+    flex-direction: column;
+    margin-top: 65px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
 
@@ -668,47 +733,58 @@ footer a:hover {
 
 <nav>
   <div class="logo">GAME<span>STATUS</span></div>
+
   <div class="nav-links">
     <a href="#services">Services</a>
-    <a href="#itemshop">🛍️Fortnite Item Shop</a>
+    <a href="#itemshop" onclick="openItemShop(event)">🛍️ Item Shop</a>
     <a href="#incidents">Incidents</a>
-    <a href="https://status.epicgames.com/" target="_blank">Epic Status ↗</a>
-    <a href="https://fortnite.bot/treasure" target="_blank">💎 Treasure ↗</a>
+    <a href="https://status.epicgames.com/" target="_blank" rel="noopener">Epic Status ↗</a>
+    <a href="https://fortnite.bot/treasure" target="_blank" rel="noopener">💎 Treasure ↗</a>
   </div>
 </nav>
+
 <main class="container">
 
   <div class="eyebrow">LIVE SYSTEM MONITOR</div>
+
   <h1>Fortnite Status</h1>
+
   <p class="subtitle">
     Check Fortnite server availability, game services,
     matchmaking and ongoing incidents.
   </p>
+
+  <!-- ITEM SHOP -->
   <div class="section-heading" id="itemshop">
-  <h2>🛍️ Fortnite Item Shop</h2>
-  <span id="shop-date">LOADING...</span>
-</div>
-
-<div id="shop-list" class="panel" style="padding:20px;">
-  <div class="empty">Loading Fortnite Item Shop...</div>
-</div>
-  <div id="item-modal" class="item-modal hidden">
-  <div class="item-modal-content">
-    <button class="item-close" onclick="closeItemModal()">×</button>
-    <img id="modal-image" src="" alt="Fortnite item">
-    <h2 id="modal-name"></h2>
-    <p id="modal-price"></p>
-    <div id="modal-type"></div>
-    <a id="modal-link" href="#" target="_blank"
-       rel="noopener">View on Fortnite ↗</a>
+    <h2>🛍️ Fortnite Item Shop</h2>
+    <span id="shop-date">CLICK TO LOAD</span>
   </div>
-</div>
 
-<div class="shop-attribution" id="shop-attribution">
-  Data from <a href="https://itemshop.gg/fortnite/api"
-  target="_blank" rel="noopener">itemshop.gg</a>
-</div>
+  <div id="shop-list" class="panel shop-hidden" style="padding:20px;"></div>
 
+  <div class="shop-attribution">
+    Data from
+    <a href="https://itemshop.gg/fortnite/api"
+       target="_blank" rel="noopener">
+      itemshop.gg
+    </a>
+  </div>
+
+  <!-- ITEM DETAILS POPUP -->
+  <div id="item-modal" class="item-modal hidden">
+    <div class="item-modal-content">
+      <button class="item-close" onclick="closeItemModal()">×</button>
+      <img id="modal-image" src="" alt="Fortnite item">
+      <h2 id="modal-name"></h2>
+      <p id="modal-price"></p>
+      <div id="modal-type"></div>
+      <a id="modal-link" href="#" target="_blank" rel="noopener">
+        View on Fortnite ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- OVERALL STATUS -->
   <div class="overall" id="overall">
     <div>
       <h2 id="overall-title">Checking servers...</h2>
@@ -716,38 +792,43 @@ footer a:hover {
         Connecting to Epic Games status API.
       </p>
     </div>
+
     <div class="status-indicator">
       <span class="dot" id="overall-dot"></span>
       <span id="overall-label">Loading</span>
     </div>
   </div>
 
-<div class="player-card">
-  <div class="player-top">
-    <div>
-      <span class="player-label">FORTNITE ECOSYSTEM</span>
-      <h2>Players Online</h2>
+  <!-- PLAYER COUNT -->
+  <div class="player-card">
+    <div class="player-top">
+      <div>
+        <span class="player-label">FORTNITE ECOSYSTEM</span>
+        <h2>Players Online</h2>
+      </div>
+      <span class="live-tag">
+        <span class="dot"></span> LIVE DATA
+      </span>
     </div>
-    <span class="live-tag"><span class="dot"></span> LIVE DATA</span>
+
+    <div class="player-number" id="player-count">Loading...</div>
+
+    <div class="player-bottom">
+      <span>Currently reported players</span>
+      <span id="player-updated">Fetching data...</span>
+    </div>
+
+    <div class="player-bar">
+      <div></div>
+    </div>
+
+    <div class="player-note">
+      <span class="dot"></span>
+      Data refreshes approximately every 10 minutes
+    </div>
   </div>
 
-  <div class="player-number" id="player-count">Loading...</div>
-
-  <div class="player-bottom">
-    <span>Currently reported players</span>
-    <span id="player-updated">Fetching data...</span>
-  </div>
-
-  <div class="player-bar">
-    <div></div>
-  </div>
-
-  <div class="player-note">
-    <span class="dot"></span>
-    Data refreshes approximately every 10 minutes
-  </div>
-</div>
-
+  <!-- SERVICES -->
   <div class="section-heading" id="services">
     <h2>Game Services</h2>
     <span id="service-count">Loading...</span>
@@ -757,6 +838,7 @@ footer a:hover {
     <div class="empty">Loading services...</div>
   </div>
 
+  <!-- INCIDENTS -->
   <div class="section-heading" id="incidents">
     <h2>Active Incidents</h2>
     <span>LIVE UPDATES</span>
@@ -766,6 +848,7 @@ footer a:hover {
     <div class="empty">Checking incidents...</div>
   </div>
 
+  <!-- CONNECTION INFORMATION -->
   <div class="section-heading">
     <h2>Connection Information</h2>
   </div>
@@ -775,10 +858,12 @@ footer a:hover {
       <span class="service-name">Data Source</span>
       <span class="service-status">Epic Games API</span>
     </div>
+
     <div class="service">
       <span class="service-name">Auto Refresh</span>
       <span class="service-status">Every 60 seconds</span>
     </div>
+
     <div class="service">
       <span class="service-name">Last Updated</span>
       <span id="updated">Waiting...</span>
@@ -789,12 +874,16 @@ footer a:hover {
 
 <footer>
   <span>© 2026 GameStatus. Fan-made status dashboard.</span>
-  <a href="https://status.epicgames.com/" target="_blank">
+  <a href="https://status.epicgames.com/" target="_blank" rel="noopener">
     Official Epic Games Status ↗
   </a>
 </footer>
 
 <script>
+/* ==================================
+   EPIC GAMES STATUS
+================================== */
+
 const API = "https://status.epicgames.com/api/v2";
 
 const statusInfo = {
@@ -833,11 +922,23 @@ function getStatus(status) {
   };
 }
 
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
+
 async function loadStatus() {
   try {
     const response = await fetch(`${API}/summary.json`);
 
-    if (!response.ok) throw new Error("API unavailable");
+    if (!response.ok) {
+      throw new Error("API unavailable");
+    }
 
     const data = await response.json();
 
@@ -845,9 +946,13 @@ async function loadStatus() {
     renderServices(data.components || []);
 
     document.getElementById("updated").textContent =
-      new Date(data.page.updated_at).toLocaleString();
+      data.page?.updated_at
+        ? new Date(data.page.updated_at).toLocaleString()
+        : "Unknown";
 
   } catch (error) {
+    console.error("Status error:", error);
+
     document.getElementById("overall-title").textContent =
       "Unable to fetch status";
 
@@ -862,11 +967,17 @@ async function loadStatus() {
 
   try {
     const response = await fetch(`${API}/incidents/unresolved.json`);
-    if (!response.ok) throw new Error("Incident API unavailable");
+
+    if (!response.ok) {
+      throw new Error("Incident API unavailable");
+    }
 
     const data = await response.json();
     renderIncidents(data.incidents || []);
-  } catch {
+
+  } catch (error) {
+    console.error("Incident error:", error);
+
     document.getElementById("incidents-list").innerHTML =
       '<div class="empty" style="color:#ffc65c">Unable to load incidents.</div>';
   }
@@ -875,10 +986,6 @@ async function loadStatus() {
 function renderOverall(status) {
   const indicator = status?.indicator || "none";
   const box = document.getElementById("overall");
-  const title = document.getElementById("overall-title");
-  const description = document.getElementById("overall-description");
-  const label = document.getElementById("overall-label");
-  const dot = document.getElementById("overall-dot");
 
   const healthy = indicator === "none";
   const warning = indicator === "minor";
@@ -886,28 +993,30 @@ function renderOverall(status) {
   box.className = "overall" +
     (healthy ? "" : warning ? " warning" : " danger");
 
-  title.textContent = healthy
-    ? "All Systems Operational"
-    : status.description || "Service Disruption";
+  document.getElementById("overall-title").textContent =
+    healthy
+      ? "All Systems Operational"
+      : status?.description || "Service Disruption";
 
-  description.textContent = healthy
-    ? "All reported Epic Games services are running normally."
-    : "Some services may be experiencing issues.";
+  document.getElementById("overall-description").textContent =
+    healthy
+      ? "All reported Epic Games services are running normally."
+      : "Some services may be experiencing issues.";
 
-  label.textContent = healthy
-    ? "All Systems Online"
-    : warning ? "Minor Issues" : "Service Issues";
+  document.getElementById("overall-label").textContent =
+    healthy
+      ? "All Systems Online"
+      : warning ? "Minor Issues" : "Service Issues";
 
-  dot.className = "dot" +
-    (healthy ? "" : warning ? " yellow" : " red");
+  document.getElementById("overall-dot").className =
+    "dot" + (healthy ? "" : warning ? " yellow" : " red");
 }
 
 function renderServices(components) {
   const list = document.getElementById("services-list");
 
-  // Find Fortnite and its child services.
   const fortnite = components.find(c =>
-    c.name.toLowerCase() === "fortnite" && c.group
+    (c.name || "").toLowerCase() === "fortnite" && c.group
   );
 
   const services = fortnite
@@ -915,14 +1024,14 @@ function renderServices(components) {
         c.id === fortnite.id || c.group_id === fortnite.id
       ).filter(c => !c.group)
     : components.filter(c =>
-        /fortnite/i.test(c.name)
+        /fortnite/i.test(c.name || "")
       );
 
   if (!services.length) {
     list.innerHTML =
       '<div class="empty">No Fortnite-specific services were returned by the API.</div>';
-    document.getElementById("service-count").textContent =
-      "No data";
+
+    document.getElementById("service-count").textContent = "No data";
     return;
   }
 
@@ -973,21 +1082,14 @@ function renderIncidents(incidents) {
   }).join("");
 }
 
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;"
-  })[char]);
-}
-
-// Initial load
+/* Load status and refresh every 60 seconds */
 loadStatus();
-
-// Refresh every 60 seconds
 setInterval(loadStatus, 60000);
+
+
+/* ==================================
+   FORTNITE PLAYER COUNT
+================================== */
 
 function findPlayerMetric(obj, names) {
   if (!obj || typeof obj !== "object") return null;
@@ -995,10 +1097,7 @@ function findPlayerMetric(obj, names) {
   for (const [key, value] of Object.entries(obj)) {
     const normalized = key.toLowerCase().replace(/[_-]/g, "");
 
-    if (
-      names.includes(normalized) &&
-      typeof value === "number"
-    ) {
+    if (names.includes(normalized) && typeof value === "number") {
       return value;
     }
   }
@@ -1006,6 +1105,7 @@ function findPlayerMetric(obj, names) {
   for (const value of Object.values(obj)) {
     if (value && typeof value === "object" && !Array.isArray(value)) {
       const result = findPlayerMetric(value, names);
+
       if (result !== null) return result;
     }
   }
@@ -1028,14 +1128,10 @@ async function loadPlayerCount() {
 
     const data = await response.json();
 
-    // Inspect the response if the API changes.
-    console.log("Fortnite ecosystem data:", data);
-
     const online = findPlayerMetric(data, [
       "online",
       "playersonline",
-      "onlineplayers",
-      "playersonline"
+      "onlineplayers"
     ]);
 
     const inMatch = findPlayerMetric(data, [
@@ -1052,10 +1148,7 @@ async function loadPlayerCount() {
     const total = online ?? inMatch;
 
     count.textContent = total.toLocaleString("en-US");
-
     updated.textContent = new Date().toLocaleTimeString();
-
-    console.log("Online:", online, "In matches:", inMatch);
 
   } catch (error) {
     console.error("Player count error:", error);
@@ -1068,14 +1161,17 @@ async function loadPlayerCount() {
 loadPlayerCount();
 setInterval(loadPlayerCount, 600000);
 
-loadPlayerCount();
-setInterval(loadPlayerCount, 600000);
+
+/* ==================================
+   FORTNITE ITEM SHOP
+================================== */
+
 let shopLoaded = false;
 let shopLoading = false;
 let currentShopItems = [];
 
 async function openItemShop(event) {
-  event.preventDefault();
+  if (event) event.preventDefault();
 
   const shopList = document.getElementById("shop-list");
   const shopDate = document.getElementById("shop-date");
@@ -1103,41 +1199,66 @@ async function openItemShop(event) {
       "https://itemshop.gg/api/v1/shop/fortnite"
     );
 
-    if (!response.ok) throw new Error("Shop unavailable");
+    if (!response.ok) {
+      throw new Error("Shop API error: " + response.status);
+    }
 
     const result = await response.json();
     const shop = result.data;
 
-    if (!shop || !shop.sections) {
-      throw new Error("Invalid shop data");
+    if (!shop || !Array.isArray(shop.sections)) {
+      throw new Error("The shop returned an unexpected response.");
     }
 
     shopDate.textContent = shop.shopDate || "CURRENT SHOP";
+
     currentShopItems = [];
 
     const sectionsHTML = shop.sections.map(section => {
-      const itemsHTML = section.items.map(item => {
+      const items = Array.isArray(section.items)
+        ? section.items
+        : [];
+
+      if (!items.length) return "";
+
+      const itemsHTML = items.map(item => {
         const index = currentShopItems.length;
         currentShopItems.push(item);
 
         const image = item.images?.card || item.images?.render;
-        const price = item.price?.amount != null
-          ? item.price.amount.toLocaleString("en-US") + " V-Bucks"
-          : item.price?.label || "Price unavailable";
+
+        let price = "Price unavailable";
+
+        if (item.price?.amount != null) {
+          price =
+            Number(item.price.amount).toLocaleString("en-US") +
+            " " + (item.price.currency || "V-Bucks");
+        } else if (item.price?.label) {
+          price = item.price.label;
+        }
 
         return `
           <button class="shop-item"
+            type="button"
             data-shop-item="${index}"
-            style="width:100%;text-align:left;color:inherit;cursor:pointer;">
-            ${image && image.startsWith("https://")
-              ? `<img src="${escapeHTML(image)}"
-                   alt="${escapeHTML(item.name)}" loading="lazy">`
-              : `<div style="aspect-ratio:1;background:#202b42"></div>`
+            style="width:100%;text-align:left;color:inherit;">
+
+            ${
+              image
+                ? `<img src="${escapeHTML(image)}"
+                    alt="${escapeHTML(item.name || "Fortnite item")}"
+                    loading="lazy">`
+                : `<div style="aspect-ratio:1;background:#202b42"></div>`
             }
+
             <div class="shop-item-info">
-              <h3>${escapeHTML(item.name)}</h3>
+              <h3>${escapeHTML(item.name || "Unknown item")}</h3>
               <p>${escapeHTML(price)}</p>
-              <span class="shop-badge">Click to view details</span>
+              ${
+                item.badge
+                  ? `<span class="shop-badge">${escapeHTML(item.badge)}</span>`
+                  : `<span class="shop-badge">Click to view details</span>`
+              }
             </div>
           </button>
         `;
@@ -1145,14 +1266,18 @@ async function openItemShop(event) {
 
       return `
         <div class="shop-section">
-          <h2>${escapeHTML(section.title)}</h2>
+          <h2>${escapeHTML(section.title || "Shop")}</h2>
           <div class="shop-grid">${itemsHTML}</div>
         </div>
       `;
     }).join("");
 
-    shopList.innerHTML = sectionsHTML ||
-      '<div class="empty">No shop items available.</div>';
+    if (!sectionsHTML) {
+      shopList.innerHTML =
+        '<div class="empty">No shop items are available right now.</div>';
+    } else {
+      shopList.innerHTML = sectionsHTML;
+    }
 
     shopList.querySelectorAll("[data-shop-item]").forEach(button => {
       button.addEventListener("click", () => {
@@ -1165,64 +1290,96 @@ async function openItemShop(event) {
   } catch (error) {
     console.error("Item Shop Error:", error);
 
+    shopDate.textContent = "UNAVAILABLE";
+
     shopList.innerHTML = `
       <div class="shop-loading">
         <h2>Unable to load the Item Shop</h2>
-        <p>Please try again.</p>
-        <button onclick="retryItemShop()">Try Again</button>
+        <p>${escapeHTML(error.message)}</p>
+        <button class="shop-retry" onclick="retryItemShop()">
+          Try Again
+        </button>
       </div>
     `;
-
-    shopDate.textContent = "UNAVAILABLE";
 
   } finally {
     shopLoading = false;
   }
 }
 
+
+/* ITEM DETAILS */
+
 function showItemDetails(index) {
   const item = currentShopItems[index];
+
   if (!item) return;
 
   const image = item.images?.render || item.images?.card;
-  const price = item.price?.amount != null
-    ? item.price.amount.toLocaleString("en-US") + " V-Bucks"
-    : item.price?.label || "Price unavailable";
 
-  document.getElementById("modal-name").textContent = item.name;
+  let price = "Price unavailable";
+
+  if (item.price?.amount != null) {
+    price =
+      Number(item.price.amount).toLocaleString("en-US") +
+      " " + (item.price.currency || "V-Bucks");
+  } else if (item.price?.label) {
+    price = item.price.label;
+  }
+
+  document.getElementById("modal-name").textContent =
+    item.name || "Unknown item";
+
   document.getElementById("modal-price").textContent = price;
-  document.getElementById("modal-type").textContent = item.type || "";
+
+  document.getElementById("modal-type").textContent =
+    item.type || "";
 
   const modalImage = document.getElementById("modal-image");
+
   modalImage.style.display = image ? "block" : "none";
-  if (image) modalImage.src = image;
+
+  if (image) {
+    modalImage.src = image;
+  } else {
+    modalImage.removeAttribute("src");
+  }
 
   const link = document.getElementById("modal-link");
-  if (item.sourceUrl?.startsWith("https://")) {
+
+  if (item.sourceUrl &&
+      item.sourceUrl.startsWith("https://")) {
     link.href = item.sourceUrl;
     link.style.display = "inline-block";
   } else {
     link.style.display = "none";
   }
 
-  document.getElementById("item-modal").classList.remove("hidden");
+  document.getElementById("item-modal")
+    .classList.remove("hidden");
 }
 
 function closeItemModal() {
-  document.getElementById("item-modal").classList.add("hidden");
+  document.getElementById("item-modal")
+    .classList.add("hidden");
 }
 
-document.getElementById("item-modal").addEventListener("click", event => {
-  if (event.target.id === "item-modal") closeItemModal();
-});
+document.getElementById("item-modal")
+  .addEventListener("click", event => {
+    if (event.target.id === "item-modal") {
+      closeItemModal();
+    }
+  });
 
 document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeItemModal();
+  if (event.key === "Escape") {
+    closeItemModal();
+  }
 });
 
 function retryItemShop() {
   shopLoaded = false;
-  openItemShop({ preventDefault: () => {} });
+  openItemShop();
 }
 </script>
 
