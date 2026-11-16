@@ -14,9 +14,9 @@
 </aside></div>
 <p class="muted" style="margin-top:22px;font-size:11px">Be respectful. This beta has no public chat and only displays your chosen username and rating. Never put your real name, school, location or other personal details in your username.</p></main>
 <script>
-const SUPABASE_URL='YOUR_SUPABASE_PROJECT_URL';
-const SUPABASE_ANON_KEY='YOUR_SUPABASE_PUBLISHABLE_KEY';
-const configured=SUPABASE_URL.startsWith('https://')&&SUPABASE_ANON_KEY.startsWith('eyJ');
+const SUPABASE_URL='https://psslzovckgmjfdfplrzr.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_TihmBxiMHn_teCdAaTa6vA_IE4Xu3JH';
+const configured=SUPABASE_URL.startsWith('https://')&&(SUPABASE_ANON_KEY.startsWith('sb_publishable_')||SUPABASE_ANON_KEY.startsWith('eyJ'));
 const sb=configured?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 const $=id=>document.getElementById(id);let chess=new Chess(),selected=null,flipped=false,legalTargets=[],user=null,profile=null,activeGame=null,channel=null,queueTimer=null;
 const glyph={wk:'♔',wq:'♕',wr:'♖',wb:'♗',wn:'♘',wp:'♙',bk:'♚',bq:'♛',br:'♜',bb:'♝',bn:'♞',bp:'♟'};
