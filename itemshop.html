@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortnite Item Shop</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #10131f;
+    color: white;
+}
+
+header {
+    background: #191e30;
+    padding: 22px;
+    text-align: center;
+    border-bottom: 2px solid #5865f2;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 15px;
+    color: white;
+    text-decoration: none;
+    background: #5865f2;
+    padding: 10px 17px;
+    border-radius: 8px;
+}
+
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px 18px;
+}
+
+#message {
+    text-align: center;
+    color: #b9c0d4;
+    padding: 30px;
+}
+
+#shop {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+}
+
+.item {
+    background: #1b2032;
+    border: 1px solid #303951;
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.item img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: #272e45;
+}
+
+.item h3 {
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+.price {
+    color: #ffd45c;
+    font-weight: bold;
+}
+
+button {
+    border: 0;
+    background: #5865f2;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover, .back:hover {
+    background: #7480ff;
+}
+
+footer {
+    text-align: center;
+    color: #8790a8;
+    padding: 25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🛍️ Fortnite Item Shop</h1>
+    <p>Check out the latest Fortnite cosmetics!</p>
+    <a class="back" href="index.html">← Back to Status</a>
+</header>
+
+<main>
+    <div id="message">Loading Item Shop...</div>
+    <div id="shop"></div>
+</main>
+
+<footer>
+    Fan-made Fortnite Status Website
+</footer>
+
+<script>
+const message = document.getElementById("message");
+const shop = document.getElementById("shop");
+
+async function loadShop() {
+    message.textContent = "Loading Item Shop...";
+    shop.innerHTML = "";
+
+    try {
+        const response = await fetch(
+            "https://itemshop.gg/api/v1/shop/fortnite"
+        );
+
+        if (!response.ok) {
+            throw new Error("Shop API returned " + response.status);
+        }
+
+        const result = await response.json();
+        const sections = result.data?.sections;
+
+        if (!Array.isArray(sections)) {
+            throw new Error("Unexpected shop data format");
+        }
+
+        let count = 0;
+
+        sections.forEach(section => {
+            (section.items || []).forEach(item => {
+                const image =
+                    item.images?.card ||
+                    item.images?.render ||
+                    "";
+
+                const name = item.name || "Fortnite Cosmetic";
+                const price = item.price?.label ||
+                    (item.price?.amount != null
+                        ? item.price.amount + " V-Bucks"
+                        : "Price unavailable");
+
+                const card = document.createElement("div");
+                card.className = "item";
+
+                const img = document.createElement("img");
+                img.src = image;
+                img.alt = name;
+                img.loading = "lazy";
+
+                const title = document.createElement("h3");
+                title.textContent = name;
+
+                const priceText = document.createElement("p");
+                priceText.className = "price";
+                priceText.textContent = price;
+
+                card.append(img, title, priceText);
+                shop.appendChild(card);
+                count++;
+            });
+        });
+
+        if (count === 0) {
+            message.textContent = "No shop items were found.";
+        } else {
+            message.textContent = "";
+        }
+
+    } catch (error) {
+        console.error("Item Shop error:", error);
+        message.textContent =
+            "Couldn't load the Item Shop. Please try again later.";
+        
+        const retry = document.createElement("button");
+        retry.textContent = "Try Again";
+        retry.onclick = loadShop;
+        message.appendChild(document.createElement("br"));
+        message.appendChild(document.createElement("br"));
+        message.appendChild(retry);
+    }
+}
+
+loadShop();
+</script>
+
+</body>
+</html>
