@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drop Spot Roulette | Fortnite Status</title>
+<style>
+:root{--bg:#080c18;--panel:#111b2e;--line:#293957;--blue:#55a8ff;--cyan:#31e4ee;--gold:#ffcf5a;--text:#f5f7ff;--muted:#9ba9c2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#174477,transparent 45%),var(--bg);color:var(--text);font:15px Inter,system-ui,sans-serif}
+header{padding:20px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;background:#080c18ed;border-bottom:1px solid var(--line)}a{color:var(--cyan);text-decoration:none}.logo{font-weight:900;font-size:19px}main{width:min(950px,94%);margin:45px auto 70px}.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:3px;font-weight:900}h1{font-size:clamp(38px,7vw,64px);margin:10px 0;background:linear-gradient(90deg,#fff,#71caff);color:transparent;background-clip:text}.muted{color:var(--muted);line-height:1.65}.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}.map{position:relative;overflow:hidden;border-radius:12px;background:#0b1425}.map img{width:100%;display:block}.pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--gold);color:#17120a;padding:8px 12px;border:2px solid white;border-radius:8px;font-weight:950;box-shadow:0 0 0 6px #ffcf5a55,0 0 25px #ffcf5a;font-size:13px;max-width:90%;text-align:center}.result{text-align:center;padding:28px 12px}.result .name{font-size:clamp(28px,6vw,48px);font-weight:950;margin:12px 0;color:var(--gold)}.tag{color:var(--cyan);font-size:11px;letter-spacing:2px;font-weight:900}.buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}button{border:1px solid var(--line);background:#17243b;color:var(--text);padding:12px 18px;border-radius:10px;cursor:pointer;font-weight:800;font-size:14px}button.primary{background:#1764a9;border-color:var(--blue)}button:disabled{opacity:.5;cursor:not-allowed}.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}footer{padding:24px 5%;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header><div class="logo">GAME<span style="color:var(--cyan)">STATUS</span> / DROP ROULETTE</div><a href="index.html">← Back to Status</a></header>
+<main>
+<div class="eyebrow">LET FATE PICK YOUR LANDING SPOT</div><h1>Drop Spot Roulette 🎯</h1>
+<p class="muted">Can't decide where to land? Spin the roulette and get a random named location from the current Fortnite island.</p>
+<section class="panel result"><div class="tag">YOUR NEXT DROP</div><div class="name" id="poi-name">Loading island locations…</div><div class="muted" id="poi-detail">Getting the latest map data</div><div class="buttons"><button class="primary" id="spin" disabled>🎲 Spin again</button><button id="copy" disabled>Copy location</button></div><p class="hint" id="spin-count">No spins yet. Your next match starts here.</p></section>
+<section class="panel"><h2>Island map</h2><div class="map"><img id="island-map" src="https://fortnite-api.com/images/map.png" alt="Current Fortnite island map"><div class="pin" id="map-pin" hidden></div></div><p class="hint">The marker highlights your chosen drop by name; its position is illustrative.</p></section>
+<section class="panel"><h2>Make it a challenge</h2><p class="muted" id="challenge">Spin to get a bonus landing challenge.</p><div class="buttons"><button id="challenge-btn">🎯 Random challenge</button></div></section>
+</main>
+<footer>Fan-made Fortnite tool, not affiliated with Epic Games. Island location data from <a href="https://fortnite-api.com/" target="_blank" rel="noopener">Fortnite-API.com</a>.</footer>
+<script>
+const API='https://fortnite-api.com';let pois=[],last=null,spins=0;
+const challenges=['Land here and make your first elimination with a common weapon.','Open three chests before leaving the area.','Play this match without using a vehicle.','Your first weapon is the only weapon you may carry until the next storm circle.','Find a teammate and stay together until the next storm circle.','Try to reach the top 25 without leaving the named location area.','Collect materials and build a small lookout before rotating.'];
+function choose(){if(!pois.length)return;let options=pois.filter(p=>p.name!==last?.name);if(!options.length)options=pois;last=options[Math.floor(Math.random()*options.length)];spins++;document.getElementById('poi-name').textContent=last.name;document.getElementById('poi-detail').textContent='Your random landing spot is locked in.';const pin=document.getElementById('map-pin');pin.textContent='DROP: '+last.name;pin.hidden=false;document.getElementById('spin-count').textContent='Spin #'+spins+' · No repeats until the list cycles';document.getElementById('copy').disabled=false;}
+async function load(){try{const r=await fetch(API+'/v1/map');if(!r.ok)throw new Error();const j=await r.json(),data=j.data||j;pois=(data.pois||[]).filter(p=>p&&p.name);if(data.images?.pois)document.getElementById('island-map').src=data.images.pois;if(!pois.length)throw new Error();document.getElementById('spin').disabled=false;choose();}catch(e){document.getElementById('poi-name').textContent='Could not load locations';document.getElementById('poi-detail').textContent='Please refresh and try again.';}}
+document.getElementById('spin').onclick=choose;
+document.getElementById('copy').onclick=()=>{if(last)navigator.clipboard?.writeText(last.name).then(()=>document.getElementById('copy').textContent='Copied!').catch(()=>{});};
+document.getElementById('challenge-btn').onclick=()=>{document.getElementById('challenge').textContent=challenges[Math.floor(Math.random()*challenges.length)];};
+load();
+</script>
+</body></html>
