@@ -533,6 +533,73 @@ footer a:hover {
   .player-card { padding: 21px; }
   .player-bottom { font-size: 9px; }
 }
+  /* ITEM SHOP */
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.shop-item {
+  background: #111a2d;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  overflow: hidden;
+  transition: .25s;
+}
+
+.shop-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--cyan);
+}
+
+.shop-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #202b42;
+}
+
+.shop-item-info {
+  padding: 13px;
+}
+
+.shop-item-info h3 {
+  font-size: 13px;
+  margin: 0 0 8px;
+}
+
+.shop-item-info p {
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.shop-section {
+  margin-top: 30px;
+}
+
+.shop-section h2 {
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+.shop-attribution {
+  margin-top: 25px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.shop-attribution a {
+  color: var(--cyan);
+}
+
+.shop-badge {
+  color: var(--green);
+  font-size: 10px;
+}
 </style>
 </head>
 
@@ -542,6 +609,7 @@ footer a:hover {
   <div class="logo">GAME<span>STATUS</span></div>
   <div class="nav-links">
     <a href="#services">Services</a>
+    <a href="#itemshop">🛍️Fortnite Item Shop</a>
     <a href="#incidents">Incidents</a>
     <a href="https://status.epicgames.com/" target="_blank">Epic Status ↗</a>
     <a href="https://fortnite.bot/treasure" target="_blank">💎 Treasure ↗</a>
@@ -555,6 +623,19 @@ footer a:hover {
     Check Fortnite server availability, game services,
     matchmaking and ongoing incidents.
   </p>
+  <div class="section-heading" id="itemshop">
+  <h2>🛍️ Fortnite Item Shop</h2>
+  <span id="shop-date">LOADING...</span>
+</div>
+
+<div id="shop-list" class="panel" style="padding:20px;">
+  <div class="empty">Loading Fortnite Item Shop...</div>
+</div>
+
+<div class="shop-attribution" id="shop-attribution">
+  Data from <a href="https://itemshop.gg/fortnite/api"
+  target="_blank" rel="noopener">itemshop.gg</a>
+</div>
 
   <div class="overall" id="overall">
     <div>
@@ -917,6 +998,80 @@ setInterval(loadPlayerCount, 600000);
 
 loadPlayerCount();
 setInterval(loadPlayerCount, 600000);
+  async function loadItemShop() {
+  const shopList = document.getElementById("shop-list");
+  const shopDate = document.getElementById("shop-date");
+
+  try {
+    const response = await fetch(
+      "https://itemshop.gg/api/v1/shop/fortnite"
+    );
+
+    if (!response.ok) throw new Error("Shop API unavailable");
+
+    const result = await response.json();
+    const shop = result.data;
+
+    if (!shop || !shop.sections) {
+      throw new Error("Invalid shop data");
+    }
+
+    shopDate.textContent = shop.shopDate || "CURRENT SHOP";
+
+    const sectionsHTML = shop.sections.map(section => {
+      const itemsHTML = section.items.map(item => {
+        const image = item.images?.card || item.images?.render;
+        const price = item.price?.amount != null
+          ? item.price.amount.toLocaleString("en-US") + " V-Bucks"
+          : item.price?.label || "Price unavailable";
+
+        return `
+          <div class="shop-item">
+            ${image && image.startsWith("https://")
+              ? `<img src="${escapeHTML(image)}"
+                   alt="${escapeHTML(item.name)}"
+                   loading="lazy">`
+              : `<div style="aspect-ratio:1;background:#202b42"></div>`
+            }
+            <div class="shop-item-info">
+              <h3>${escapeHTML(item.name)}</h3>
+              <p>${escapeHTML(price)}</p>
+              ${item.badge
+                ? `<span class="shop-badge">${escapeHTML(item.badge)}</span>`
+                : ""}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      return `
+        <div class="shop-section">
+          <h2>${escapeHTML(section.title)}</h2>
+          <div class="shop-grid">${itemsHTML}</div>
+        </div>
+      `;
+    }).join("");
+
+    shopList.innerHTML = sectionsHTML ||
+      '<div class="empty">No shop items available.</div>';
+
+    const attribution = result.meta?.attribution?.url;
+    if (attribution && attribution.startsWith("https://")) {
+      document.getElementById("shop-attribution").innerHTML =
+        `Data from <a href="${escapeHTML(attribution)}"
+        target="_blank" rel="noopener">itemshop.gg</a>`;
+    }
+
+  } catch (error) {
+    console.error("Item Shop Error:", error);
+    shopList.innerHTML =
+      '<div class="empty">Unable to load the Item Shop. Please try again later.</div>';
+    shopDate.textContent = "UNAVAILABLE";
+  }
+}
+
+loadItemShop();
+setInterval(loadItemShop, 300000);
 </script>
 
 </body>
