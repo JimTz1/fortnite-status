@@ -30,12 +30,28 @@ h1{font-size:clamp(34px,5vw,54px);letter-spacing:-2px;margin:9px 0;background:li
 button{font:inherit}
 #retry{border:0;border-radius:8px;padding:10px 15px;background:var(--blue);color:white;cursor:pointer;margin-top:12px}
 .modal-backdrop{display:none;position:fixed;inset:0;z-index:20;background:#02050bd9;backdrop-filter:blur(7px);padding:20px;overflow:auto;align-items:center;justify-content:center}.modal-backdrop.open{display:flex}
-.modal{position:relative;width:min(850px,100%);background:#111a2a;border:1px solid #385071;border-radius:18px;box-shadow:0 25px 90px #000b;overflow:hidden}
+.modal{position:relative;width:min(1050px,100%);background:#0e1523;border:1px solid #34445d;border-radius:16px;box-shadow:0 25px 90px #000b;overflow:hidden}
+.modal-topline{padding:14px 24px;border-bottom:1px solid var(--line);font-size:12px;color:#a9bad3;display:flex;justify-content:space-between;gap:12px}
+.modal-main{grid-template-columns:minmax(260px,1.05fr) 1fr;gap:28px;padding:26px}
+.modal-art{min-height:360px;background:radial-gradient(ellipse at 50% 45%,#435b79,#172438 72%);border:1px solid #ffffff12}
+.modal-details{padding:18px 12px 10px 0}
+.modal-details h2{font-size:clamp(28px,4vw,40px);letter-spacing:-1.2px}
+.modal-description{color:#c1cce0;font-size:14px;line-height:1.7;margin:18px 0}
+.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:18px}
+.detail-cell{padding:11px;background:#172337;border:1px solid #2b3c55;border-radius:9px;min-width:0}
+.detail-cell small{display:block;color:#8193ad;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.detail-cell b{font-size:12px;overflow-wrap:anywhere}
+.history{border-top:1px solid var(--line);padding:18px 24px 22px}
+.history h3{font-size:14px;margin:0 0 12px}
+.history-list{display:flex;flex-wrap:wrap;gap:8px}
+.history-list span{padding:7px 10px;border-radius:7px;background:#19263a;color:#c5d3e8;font-size:11px}
+.contents{background:#0b1220}
+.bundle-label{color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
 .close{position:absolute;right:13px;top:13px;width:36px;height:36px;border:1px solid #ffffff30;border-radius:50%;background:#07101dcc;color:white;font-size:21px;cursor:pointer;z-index:2}
 .modal-main{display:grid;grid-template-columns:minmax(220px,.9fr) 1.1fr;gap:20px;padding:24px}.modal-art{min-height:280px;border-radius:13px;background:radial-gradient(circle at 50% 35%,#344965,#182438 70%);display:grid;place-items:center;overflow:hidden}.modal-art img{width:100%;height:100%;max-height:390px;object-fit:contain;padding:10px}.modal-details{padding:16px 8px 10px 0}.modal-details h2{font-size:clamp(22px,3vw,32px);margin:8px 0 12px}.modal-price{color:var(--gold);font-size:18px;font-weight:900}.meta{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0}.meta span{background:#1d2b42;border:1px solid #34445d;color:#c4d4eb;padding:6px 9px;border-radius:7px;font-size:11px}
 .contents{border-top:1px solid var(--line);padding:18px 24px 24px}.contents h3{font-size:14px;margin:0 0 12px}.contents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:9px}.content-item{display:flex;align-items:center;gap:9px;background:#192438;border:1px solid #2c3d56;border-radius:9px;padding:8px;min-width:0}.content-item img{width:44px;height:44px;object-fit:contain;background:#263750;border-radius:6px}.content-item div{min-width:0}.content-item b{display:block;font-size:10px;line-height:1.3}.content-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
 footer{text-align:center;color:#64728b;font-size:11px;padding:22px}
-@media(max-width:620px){main{margin-top:26px}.modal-main{grid-template-columns:1fr;padding:16px;gap:10px}.modal-art{min-height:220px;max-height:270px}.modal-details{padding:5px 2px}.contents{padding:16px}.toolbar select{flex:1}#shop{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px}}
+@media(max-width:620px){main{margin-top:26px}.modal-main{grid-template-columns:1fr;padding:16px;gap:10px}.modal-art{min-height:240px;max-height:300px}.modal-details{padding:5px 2px}.contents,.history{padding:16px}.toolbar select{flex:1}#shop{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px}.detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -64,11 +80,13 @@ footer{text-align:center;color:#64728b;font-size:11px;padding:22px}
 <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
   <div class="modal">
     <button class="close" id="close" aria-label="Close">×</button>
+    <div class="modal-topline"><span>FORTNITE COSMETIC DETAILS</span><span id="modal-id"></span></div>
     <div class="modal-main">
       <div class="modal-art"><img id="modal-image" alt=""></div>
-      <div class="modal-details"><div class="eyebrow" id="modal-type">COSMETIC</div><h2 id="modal-name"></h2><div class="modal-price" id="modal-price"></div><div class="meta" id="modal-meta"></div><p class="sub" id="modal-description"></p></div>
+      <div class="modal-details"><div class="eyebrow" id="modal-type">COSMETIC</div><h2 id="modal-name"></h2><div class="modal-price" id="modal-price"></div><div class="meta" id="modal-meta"></div><p class="modal-description" id="modal-description"></p><div class="detail-grid" id="detail-grid"></div></div>
     </div>
-    <div class="contents" id="contents" hidden><h3>Bundle contents</h3><div class="contents-grid" id="contents-grid"></div></div>
+    <div class="contents" id="contents" hidden><div class="bundle-label">Included cosmetics</div><h3>Bundle contents</h3><div class="contents-grid" id="contents-grid"></div></div>
+    <div class="history" id="history" hidden><h3>Shop appearances</h3><div class="history-list" id="history-list"></div></div>
   </div>
 </div>
 <footer>Fan-made Fortnite Status Website · Item data provided by itemshop.gg</footer>
@@ -87,7 +105,35 @@ function render(){shop.innerHTML='';let items=allItems.filter(matches);if(sort.v
 const groups=new Map();items.forEach(item=>{const group=text(item._section)||'ITEM SHOP';if(!groups.has(group))groups.set(group,[]);groups.get(group).push(item)});
 groups.forEach((groupItems,groupName)=>{const heading=document.createElement('h2');heading.className='section-title';heading.textContent=groupName;shop.appendChild(heading);groupItems.forEach(item=>{const card=document.createElement('article');card.className='item';card.tabIndex=0;card.setAttribute('role','button');const art=document.createElement('div');art.className='art';const img=getImage(item);if(img){const image=document.createElement('img');image.src=img;image.alt=text(item.name);image.loading='lazy';image.onerror=()=>{image.remove();const p=document.createElement('span');p.className='placeholder';p.textContent='✦';art.appendChild(p)};art.appendChild(image)}else{const p=document.createElement('span');p.className='placeholder';p.textContent='✦';art.appendChild(p)}const tag=document.createElement('span');tag.className='tag';tag.textContent=isBundle(item)?'Bundle':getType(item);art.appendChild(tag);const info=document.createElement('div');info.className='item-info';const title=document.createElement('h3');title.textContent=text(item.name)||'Fortnite Cosmetic';const price=document.createElement('div');price.className='price';price.textContent=getPrice(item);info.append(title,price);card.append(art,info);card.addEventListener('click',()=>inspect(item));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();inspect(item)}});shop.appendChild(card)})})}
 function getBundleContents(item){const candidates=[item.bundleItems,item.items,item.contents,item.grants,item.offerItems,item.cosmetics,item.bundle?.items];for(const value of candidates)if(Array.isArray(value)&&value.length)return value;return []}
-function inspect(item){const image=getImage(item),modal=document.getElementById('modal'),modalImage=document.getElementById('modal-image');modalImage.src=image;modalImage.alt=text(item.name);modalImage.style.visibility=image?'visible':'hidden';document.getElementById('modal-type').textContent=isBundle(item)?'BUNDLE':getType(item).toUpperCase();document.getElementById('modal-name').textContent=text(item.name)||'Fortnite Cosmetic';document.getElementById('modal-price').textContent=getPrice(item);document.getElementById('modal-description').textContent=text(item.description)||text(item.introduction)||'';const meta=document.getElementById('modal-meta');meta.innerHTML='';[item.rarity?.displayValue||item.rarity?.value||item.rarity,item.series?.name||item.series?.value,item.type?.displayValue||item.type?.value].filter(v=>typeof v==='string'&&v).forEach(v=>{const span=document.createElement('span');span.textContent=v;meta.appendChild(span)});const contents=getBundleContents(item),section=document.getElementById('contents'),grid=document.getElementById('contents-grid');grid.innerHTML='';section.hidden=!contents.length;if(contents.length){contents.forEach(entry=>{const obj=entry.item||entry.cosmetic||entry;const wrap=document.createElement('div');wrap.className='content-item';const img=document.createElement('img');img.alt='';img.src=getImage(obj);const details=document.createElement('div'),name=document.createElement('b'),type=document.createElement('small');name.textContent=text(obj.name)||text(entry.name)||'Included item';type.textContent=getType(obj);details.append(name,type);wrap.append(img,details);grid.appendChild(wrap)})}modal.classList.add('open');document.body.style.overflow='hidden'}
+function field(...values){for(const value of values){if(value===0)return '0';if(typeof value==='string'&&value.trim())return value;if(typeof value==='number'&&Number.isFinite(value))return String(value)}return '—'}
+function dateValue(value){if(!value)return '—';const date=new Date(value);return Number.isNaN(date.getTime())?String(value):date.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}
+function inspect(item){
+ const modal=document.getElementById('modal'),image=getImage(item),modalImage=document.getElementById('modal-image');
+ modalImage.src=image;modalImage.alt=text(item.name);modalImage.style.visibility=image?'visible':'hidden';
+ const bundle=isBundle(item),type=getType(item);
+ document.getElementById('modal-type').textContent=bundle?'BUNDLE':type.toUpperCase();
+ document.getElementById('modal-name').textContent=text(item.name)||'Fortnite Cosmetic';
+ document.getElementById('modal-price').textContent=getPrice(item);
+ document.getElementById('modal-description').textContent=field(item.description,item.introduction,item.shortDescription)==='—'?'':field(item.description,item.introduction,item.shortDescription);
+ document.getElementById('modal-id').textContent=field(item.id,item.apiId,item.gameId);
+ const meta=document.getElementById('modal-meta');meta.innerHTML='';
+ [item.rarity?.displayValue||item.rarity?.value||item.rarity,item.series?.name||item.series?.value||item.series,item.type?.displayValue||item.type?.value||item.type].filter(v=>typeof v==='string'&&v).forEach(v=>{const span=document.createElement('span');span.textContent=v;meta.appendChild(span)});
+ const details=[
+  ['Rarity',field(item.rarity?.displayValue,item.rarity?.value,item.rarity)],
+  ['Type',field(item.type?.displayValue,item.type?.value,item.type)],
+  ['Introduced',field(item.introducedIn?.text,item.introducedIn,item.introduction?.chapter,item.introduction?.season)],
+  ['Release date',dateValue(item.releaseDate||item.addedAt)],
+  ['Last seen',dateValue(item.lastSeen||item.lastSeenDate)],
+  ['Shop appearances',field(item.occurrences,item.appearances,item.shopOccurrences)]
+ ];
+ const detailGrid=document.getElementById('detail-grid');detailGrid.innerHTML='';
+ details.forEach(([label,value])=>{if(value==='—')return;const cell=document.createElement('div');cell.className='detail-cell';const small=document.createElement('small'),bold=document.createElement('b');small.textContent=label;bold.textContent=value;cell.append(small,bold);detailGrid.appendChild(cell)});
+ const contents=getBundleContents(item),section=document.getElementById('contents'),grid=document.getElementById('contents-grid');grid.innerHTML='';section.hidden=!contents.length;
+ contents.forEach(entry=>{const obj=entry.item||entry.cosmetic||entry;const wrap=document.createElement('div');wrap.className='content-item';const img=document.createElement('img');img.alt='';img.src=getImage(obj);const details=document.createElement('div'),name=document.createElement('b'),kind=document.createElement('small');name.textContent=text(obj.name)||text(entry.name)||'Included item';kind.textContent=getType(obj);details.append(name,kind);wrap.append(img,details);grid.appendChild(wrap)});
+ const historyValues=item.shopHistory||item.shopDates||item.appearancesList||[];const history=document.getElementById('history'),historyList=document.getElementById('history-list');historyList.innerHTML='';history.hidden=!Array.isArray(historyValues)||!historyValues.length;
+ if(!history.hidden)historyValues.slice(0,20).forEach(value=>{const chip=document.createElement('span');chip.textContent=dateValue(value.date||value);historyList.appendChild(chip)});
+ modal.classList.add('open');document.body.style.overflow='hidden';
+}
 function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
 document.getElementById('close').addEventListener('click',closeModal);document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 search.addEventListener('input',render);sort.addEventListener('change',render);document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b===button));activeFilter=button.dataset.filter;render()}));
