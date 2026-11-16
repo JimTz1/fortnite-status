@@ -1,21 +1,26 @@
 # Chess Arena setup
 
-The chess page is already added to your site. This one-time setup connects accounts, online matchmaking and saved ratings.
+The chess page now uses a device-based player profile instead of email/password login. It supports random matchmaking and private games with a short code.
 
-## 1. Create the free backend project
-1. Open https://supabase.com and create a project.
-2. Open **SQL Editor → New query** in its dashboard.
-3. Open [chess-setup.sql](chess-setup.sql) in this GitHub repository, copy all the SQL, paste it into the editor, and press **Run**.
+## One-time Supabase setup
 
-## 2. Connect the website
-1. In Supabase, open **Project Settings → API** (or the project's Connect dialog).
-2. Copy the **Project URL** and the **publishable key**. Never use a secret or service-role key in website code.
-3. In GitHub, open `chess.html`, click Edit, and find `YOUR_SUPABASE_PROJECT_URL` and `YOUR_SUPABASE_PUBLISHABLE_KEY` near the bottom.
-4. Replace those two values with the ones from Supabase, keeping the quote marks, then commit.
-5. Wait for GitHub Pages to publish and open https://jimtz1.github.io/fortnite-status/chess.html.
+1. Open your Supabase project.
+2. Go to **Authentication → Settings** and enable **Allow anonymous sign-ins**.
+3. Open **SQL Editor → New query**.
+4. Run [chess-setup.sql](chess-setup.sql) if you have not already run the original setup.
+5. Then open [chess-device-games.sql](chess-device-games.sql), copy all its SQL into a new query, and run it. This adds private game codes and waiting-room support.
 
-## 3. Create an account
-Use a nickname (not your real name, school, location, or other personal information). If email confirmation is enabled, check the inbox for the confirmation message.
+## How players use it
+
+- Open [Chess Arena](https://jimtz1.github.io/fortnite-status/chess.html). A player profile is created automatically and saved in that browser.
+- **Find opponent** puts the player into random matchmaking.
+- **Create game code** makes a private room code to share with a friend.
+- Enter a friend's code and choose **Join with code** to join their waiting game.
+
+## Important device-profile note
+
+The profile is remembered by that browser on that device. Clearing browser/site data, using private browsing, or switching devices can make a new profile; there is no email login to recover the old one.
 
 ## Beta note
-This is a first online prototype, not a finished Chess.com replacement. It has account profiles, a queue, live board updates and database-side ELO updates when a player resigns. Before using competitive ratings with lots of players, the move submission must be validated by trusted server-side chess rules and matchmaking must be hardened. The current browser-based move sync is not cheat-proof. Free backend projects may pause after inactivity.
+
+This is an early online prototype, not a finished Chess.com replacement. The current move-sync RPC accepts browser-submitted positions and is not cheat-proof or suitable for trusted competitive ratings. A production version needs server-side legal-move validation, secure matchmaking, and stronger abuse protection.
