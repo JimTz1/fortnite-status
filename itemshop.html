@@ -48,10 +48,10 @@ button{font:inherit}
 .contents{background:#0b1220}
 .bundle-label{color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
 .close{position:absolute;right:13px;top:13px;width:36px;height:36px;border:1px solid #ffffff30;border-radius:50%;background:#07101dcc;color:white;font-size:21px;cursor:pointer;z-index:2}
-.modal-main{display:grid;grid-template-columns:minmax(220px,.9fr) 1.1fr;gap:20px;padding:24px}.modal-visual{min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:stretch}.modal-art{min-height:280px;aspect-ratio:1/1;border-radius:13px;background:radial-gradient(circle at 50% 35%,#344965,#182438 70%);display:grid;place-items:center;overflow:hidden}.modal-art img{width:100%;height:100%;max-height:390px;object-fit:contain;padding:10px}.media-preview{margin-top:0;min-width:0;align-self:stretch;aspect-ratio:1/1;display:flex;flex-direction:column;border:1px solid #34445d;border-radius:12px;overflow:hidden;background:#080d16}.media-heading{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;font-size:10px;letter-spacing:1px;color:#b8c8df}.media-heading span{letter-spacing:0;color:#8fa2bd;font-weight:500}.load-preview{width:100%;height:100%;min-height:130px;border:0;background:#111b2b;color:#d9e8ff;font-weight:800;cursor:pointer;padding:14px}.load-preview:hover{background:#1a2b43}#media-player{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#000}#media-player video{display:block;width:100%;height:100%;max-height:100%;aspect-ratio:1/1;object-fit:contain;background:#000}#media-player iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}#media-player audio{display:block;width:calc(100% - 20px);margin:10px}#media-player .media-empty{padding:14px;color:#aab8cc;font-size:12px;line-height:1.5}.modal-details{padding:16px 8px 10px 0}.modal-details h2{font-size:clamp(22px,3vw,32px);margin:8px 0 12px}.modal-price{color:var(--gold);font-size:18px;font-weight:900}\n.audio-preview{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 0;padding:13px;background:#172337;border:1px solid #2b3c55;border-radius:10px}.audio-preview button{border:0;border-radius:8px;background:#2878db;color:white;font-weight:800;padding:10px 15px;cursor:pointer}.audio-preview button:disabled{opacity:.55;cursor:wait}.audio-preview span{font-size:11px;color:#aebbd0}.meta{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0}.meta span{background:#1d2b42;border:1px solid #34445d;color:#c4d4eb;padding:6px 9px;border-radius:7px;font-size:11px}
+.modal-main{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.7fr);gap:20px;padding:24px}.modal-visual{min-width:0;width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:stretch;align-content:start}.modal-art{min-height:280px;aspect-ratio:1/1;border-radius:13px;background:radial-gradient(circle at 50% 35%,#344965,#182438 70%);display:grid;place-items:center;overflow:hidden}.modal-art img{width:100%;height:100%;max-height:390px;object-fit:contain;padding:10px}.media-preview{margin-top:0;width:100%;min-width:0;align-self:stretch;aspect-ratio:1/1;display:flex;flex-direction:column;border:1px solid #34445d;border-radius:12px;overflow:hidden;background:#080d16}.media-heading{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;font-size:10px;letter-spacing:1px;color:#b8c8df}.media-heading span{letter-spacing:0;color:#8fa2bd;font-weight:500}.load-preview{width:100%;height:100%;min-height:130px;border:0;background:#111b2b;color:#d9e8ff;font-weight:800;cursor:pointer;padding:14px}.load-preview:hover{background:#1a2b43}#media-player{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#000}#media-player video{display:block;width:100%;height:100%;max-height:100%;aspect-ratio:1/1;object-fit:contain;background:#000}#media-player iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#000}#media-player audio{display:block;width:calc(100% - 20px);margin:10px}#media-player .media-empty{padding:14px;color:#aab8cc;font-size:12px;line-height:1.5}.modal-details{padding:16px 8px 10px 0}.modal-details h2{font-size:clamp(22px,3vw,32px);margin:8px 0 12px}.modal-price{color:var(--gold);font-size:18px;font-weight:900}\n.audio-preview{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:18px 0;padding:13px;background:#172337;border:1px solid #2b3c55;border-radius:10px}.audio-preview button{border:0;border-radius:8px;background:#2878db;color:white;font-weight:800;padding:10px 15px;cursor:pointer}.audio-preview button:disabled{opacity:.55;cursor:wait}.audio-preview span{font-size:11px;color:#aebbd0}.meta{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0}.meta span{background:#1d2b42;border:1px solid #34445d;color:#c4d4eb;padding:6px 9px;border-radius:7px;font-size:11px}
 .contents{border-top:1px solid var(--line);padding:18px 24px 24px}.contents h3{font-size:14px;margin:0 0 12px}.contents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:9px}.content-item{display:flex;align-items:center;gap:9px;cursor:pointer;text-align:left;color:inherit;font:inherit;width:100%;background:#192438;border:1px solid #2c3d56;border-radius:9px;padding:8px;min-width:0}.content-item:hover{border-color:#6da9ef;background:#21314a}.content-item:focus-visible{outline:2px solid #70b5ff;outline-offset:2px}.content-item img{width:44px;height:44px;object-fit:contain;background:#263750;border-radius:6px}.content-item div{min-width:0}.content-item b{display:block;font-size:10px;line-height:1.3}.content-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
 footer{text-align:center;color:#64728b;font-size:11px;padding:22px}
-@media(max-width:760px){.modal-visual{grid-template-columns:repeat(2,minmax(0,1fr))}.media-preview{margin-top:10px}.modal-art{min-height:220px;max-height:300px}}\n@media(max-width:520px){.modal-visual{grid-template-columns:1fr}.media-preview{aspect-ratio:16/9}}\n@media(max-width:620px){main{margin-top:26px}.modal-main{grid-template-columns:1fr;padding:16px;gap:10px}.modal-art{min-height:240px;max-height:300px}.modal-details{padding:5px 2px}.contents,.history{padding:16px}.toolbar select{flex:1}#shop{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px}.detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.modal-main{grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr)}.modal-visual{grid-template-columns:repeat(2,minmax(0,1fr))}.media-preview{margin-top:10px}.modal-art{min-height:220px;max-height:300px}}\n@media(max-width:520px){.modal-main{grid-template-columns:1fr}.modal-visual{grid-template-columns:repeat(2,minmax(0,1fr))}.media-preview{aspect-ratio:16/9}}\n@media(max-width:620px){main{margin-top:26px}.modal-main{grid-template-columns:1fr;padding:16px;gap:10px}.modal-art{min-height:240px;max-height:300px}.modal-details{padding:5px 2px}.contents,.history{padding:16px}.toolbar select{flex:1}#shop{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px}.detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* Fortnite.GG-inspired shop layout */
 :root{--bg:#101114;--panel:#1b1d22;--panel2:#24272e;--line:#343840;--text:#f2f3f5;--muted:#a0a4ad;--blue:#4389ed;--cyan:#71baff}
@@ -140,17 +140,17 @@ function field(...values){for(const value of values){if(value===0)return '0';if(
 function dateValue(value){if(!value)return '—';const date=new Date(value);return Number.isNaN(date.getTime())?String(value):date.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}
 function isJamTrack(item){return /jam\s*track|music|track/i.test(getType(item)+' '+text(item.name))}
 function isVideoCosmetic(item){return /outfit|skin|back\s*bling|backpack|pickaxe|emote/i.test(getType(item)+' '+text(item.name))&&!isJamTrack(item)}
-function findMedia(value,kind,depth=0){
+function findMedia(value,kind,depth=0,context=''){
  if(!value||depth>7)return '';
  if(typeof value==='string'){
   if(kind==='audio'&&/^https?:\/\//i.test(value)&&(/\.(mp3|m4a|ogg|wav)(\?|$)/i.test(value)||/audio|preview/i.test(value)))return value;
   if(kind==='video'&&/^https?:\/\//i.test(value)&&(/\.(mp4|webm|mov)(\?|$)/i.test(value)||/video|showcase/i.test(value)))return value;
   return '';
  }
- if(Array.isArray(value)){for(const v of value){const found=findMedia(v,kind,depth+1);if(found)return found}return ''}
+ if(Array.isArray(value)){for(const v of value){const found=findMedia(v,kind,depth+1,context);if(found)return found}return ''}
  if(typeof value==='object'){
-  const preferred=kind==='audio'?['audio','audioUrl','previewAudio','previewUrl','url','src','mediaUrl']:['video','videoUrl','showcaseVideo','previewVideo','previewUrl','url','src','mediaUrl'];
-  for(const key of preferred){const v=value[key];if(typeof v==='string'){if(kind==='audio'&&/audio|preview|\.(mp3|m4a|ogg|wav)/i.test(key+' '+v)){const found=findMedia(v,kind,depth+1);if(found)return found}if(kind==='video'&&/video|showcase|preview|\.(mp4|webm|mov)/i.test(key+' '+v)){const found=findMedia(v,kind,depth+1);if(found)return found}}}
+  const mediaContext=String(value.type||value.mimeType||value.contentType||value.kind||'');\n  const direct=value.url||value.src||value.mediaUrl||value.downloadUrl;\n  if(typeof direct==='string'&&((kind==='video'&&/video/i.test(mediaContext))||(kind==='audio'&&/audio/i.test(mediaContext)))){const found=findMedia(direct,kind,depth+1,mediaContext);if(found)return found}\n  const preferred=kind==='audio'?['audio','audioUrl','previewAudio','previewUrl','url','src','mediaUrl']:['video','videoUrl','showcaseVideo','previewVideo','previewUrl','url','src','mediaUrl'];
+  for(const key of preferred){const v=value[key];if(typeof v==='string'){if(kind==='audio'&&/audio|preview|\.(mp3|m4a|ogg|wav)/i.test(key+' '+v)){const found=findMedia(v,kind,depth+1);if(found)return found}if(kind==='video'&&/video|showcase|preview|\.(mp4|webm|mov)/i.test(key+' '+v)){const found=findMedia(v,kind,depth+1,key+' '+mediaContext);if(found)return found}}}
   for(const [key,v] of Object.entries(value)){if(/image|thumbnail|poster|icon/i.test(key))continue;const found=findMedia(v,kind,depth+1);if(found)return found}
  }
  return '';
@@ -164,23 +164,31 @@ function findYoutubeId(value,depth=0){
 }
 async function fetchCosmeticMedia(item,kind){
  const id=item.id||item.itemKey||item.apiId;if(!id)throw new Error('Cosmetic ID is missing');
- const urls=['https://prod.fn-api.cc/v1/cosmetics/all/'+encodeURIComponent(id),'https://prod.api-fortnite.com/api/v2/cosmetics/'+encodeURIComponent(id)+'/media'];
+ const urls=[
+  {url:'https://prod.fn-api.cc/v1/cosmetics/all/'+encodeURIComponent(id),source:'fn'},
+  {url:'https://prod.api-fortnite.com/api/v2/cosmetics/'+encodeURIComponent(id)+'/media',source:'media'}
+ ];
  let lastError=null;
  const normalize=s=>String(s||'').normalize('NFKD').toLowerCase().replace(/[^a-z0-9]/g,'');
- for(const url of urls){try{
-  const response=await fetch(url,{headers:{Accept:'application/json'}});
+ for(const endpoint of urls){try{
+  const response=await fetch(endpoint.url,{headers:{Accept:'application/json'}});
   if(!response.ok)throw new Error('Media service returned '+response.status);
-  const payload=await response.json(),cosmetic=payload.data||payload;
-  const returnedName=String(cosmetic.name||cosmetic.displayName||cosmetic.title||'');
-  if(!returnedName||normalize(returnedName)!==normalize(item.name))throw new Error('Preview identity could not be verified');
+  const payload=await response.json();
+  const cosmetic=payload.data||payload.cosmetic||payload;
+  // Both requests are keyed by this exact cosmetic ID. If a response includes an identity, verify it;
+  // the dedicated media endpoint may legitimately return media without repeating the cosmetic name.
+  const returnedId=cosmetic.id||cosmetic.apiId||cosmetic.itemKey;
+  const returnedName=cosmetic.name||cosmetic.displayName||cosmetic.title;
+  if(returnedId&&String(returnedId)!==String(id))throw new Error('Preview belongs to a different cosmetic');
+  if(returnedName&&normalize(returnedName)!==normalize(item.name))throw new Error('Preview belongs to a different cosmetic');
   const media=cosmetic.media||cosmetic;
   const found=kind==='audio'?findMedia(media,'audio'):findMedia(media,'video')||findYoutubeId(media);
-  if(found)return payload;
-  lastError=new Error('No matching preview is published for this cosmetic');
+  if(found)return {data:cosmetic,media};
+  lastError=new Error('No preview media was returned for this cosmetic');
  }catch(error){lastError=error}}
- throw lastError||new Error('Preview service unavailable');
+ throw lastError||new Error('Preview unavailable');
 }
-async function loadTrackPreview(item){const request=++audioRequest,audio=document.getElementById('track-audio'),button=document.getElementById('audio-toggle'),status=document.getElementById('audio-status');button.disabled=true;button.textContent='Loading…';status.textContent='Finding audio preview…';audio.pause();audio.removeAttribute('src');audio.load();try{const payload=await fetchCosmeticMedia(item,'audio'),cosmetic=payload.data||payload,media=cosmetic.media||cosmetic;const url=findMedia(media,'audio');if(request!==audioRequest)return;if(!url)throw new Error('No audio preview is published for this track right now');audio.src=url;audio.load();await audio.play();button.disabled=false;button.textContent='Ⅱ Pause Preview';status.textContent='30-second preview';}catch(error){if(request!==audioRequest)return;button.disabled=false;button.textContent='▶ Play Preview';status.textContent=error.message||'Preview unavailable';}}
+async function loadTrackPreview(item){const request=++audioRequest,audio=document.getElementById('track-audio'),button=document.getElementById('audio-toggle'),status=document.getElementById('audio-status');button.disabled=true;button.textContent='Loading…';status.textContent='Finding audio preview…';audio.pause();audio.removeAttribute('src');audio.load();try{const payload=await fetchCosmeticMedia(item,'audio'),cosmetic=payload.data||payload,media=payload.media||cosmetic.media||cosmetic;const url=findMedia(media,'audio');if(request!==audioRequest)return;if(!url)throw new Error('No audio preview is published for this track right now');audio.src=url;audio.load();await audio.play();button.disabled=false;button.textContent='Ⅱ Pause Preview';status.textContent='30-second preview';}catch(error){if(request!==audioRequest)return;button.disabled=false;button.textContent='▶ Play Preview';status.textContent=error.message||'Preview unavailable';}}
 async function loadVideoPreview(item){
  const section=document.getElementById('media-preview'),player=document.getElementById('media-player');
  section.hidden=false;document.getElementById('media-title').textContent='VIDEO PREVIEW';document.getElementById('media-status').textContent='Ready when you are';
@@ -191,7 +199,7 @@ async function loadVideoSource(item){
  const request=++mediaRequest,player=document.getElementById('media-player'),status=document.getElementById('media-status');
  status.textContent='Checking matching preview…';player.innerHTML='<div class="media-empty">Checking the preview for this exact cosmetic…</div>';
  try{
-  const payload=await fetchCosmeticMedia(item,'video'),cosmetic=payload.data||payload,media=cosmetic.media||cosmetic;
+  const payload=await fetchCosmeticMedia(item,'video'),cosmetic=payload.data||payload,media=payload.media||cosmetic.media||cosmetic;
   if(request!==mediaRequest)return;
   const videoUrl=findMedia(media,'video'),youtubeId=findYoutubeId(media);player.innerHTML='';
   if(videoUrl){const video=document.createElement('video');video.controls=true;video.playsInline=true;video.loop=true;video.preload='none';video.poster=getImage(item);video.src=videoUrl;video.addEventListener('error',()=>{status.textContent='Video unavailable';player.innerHTML='<div class="media-empty">This preview video could not be played.</div>'},{once:true});player.appendChild(video);status.textContent='Preview ready — press play';}
