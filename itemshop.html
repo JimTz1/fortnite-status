@@ -285,7 +285,7 @@ function populateHistoryDates(){
 }
 function showHistorySnapshot(){
  const date=document.getElementById('history-date').value;if(!date)return;
- try{const data=JSON.parse(localStorage.getItem('fortnite-shop-snapshot:'+date)||'[]');const keys=new Set(data);const found=allItems.filter(i=>keys.has(itemKey(i)));document.getElementById('history-note').textContent=found.length?date+': '+found.length+' matching items in today's data. Full old-shop item details are not stored.':'Snapshot saved for '+date+'; those items are not all in today’s shop.'}catch{document.getElementById('history-note').textContent='Could not read this snapshot.'}
+ try{const data=JSON.parse(localStorage.getItem('fortnite-shop-snapshot:'+date)||'[]');const keys=new Set(data);const found=allItems.filter(i=>keys.has(itemKey(i)));document.getElementById('history-note').textContent=found.length?date+': '+found.length+" matching items in today's data. Full old-shop item details are not stored.":'Snapshot saved for '+date+'; those items are not all in today’s shop.'}catch{document.getElementById('history-note').textContent='Could not read this snapshot.'}
 }
 function checkWishlistReturns(){
  const hits=allItems.filter(i=>wishlist.has(itemKey(i)));const note=document.getElementById('wishlist-alert-note');
