@@ -168,20 +168,34 @@ async function fetchCosmeticMedia(item){
   'https://prod.fn-api.cc/v1/cosmetics/all/'+encodeURIComponent(id),
   'https://prod.api-fortnite.com/api/v2/cosmetics/'+encodeURIComponent(id)+'/media'
  ];
- let lastError;
- for(const url of urls){try{const response=await fetch(url,{headers:{Accept:'application/json'}});if(!response.ok)throw new Error('Media service returned '+response.status);return await response.json()}catch(error){lastError=error}}
+ let lastError=null;
+ for(const url of urls){
+  try{
+   const response=await fetch(url,{headers:{Accept:'application/json'}});
+   if(!response.ok)throw new Error('Media service returned '+response.status);
+   const payload=await response.json(),cosmetic=payload.data||payload;
+   const returnedId=String(cosmetic.id||cosmetic.apiId||cosmetic.itemKey||'');
+   const returnedName=String(cosmetic.name||cosmetic.displayName||'').trim().toLowerCase();
+   const wantedName=String(item.name||'').trim().toLowerCase();
+   if(returnedId&&returnedId!==String(id))throw new Error('Preview belongs to a different cosmetic');
+   if(returnedName&&wantedName&&returnedName!==wantedName)throw new Error('Preview belongs to a different cosmetic');
+   const media=cosmetic.media||cosmetic;
+   if(findMedia(media,'video')||findYoutubeId(media)||findMedia(media,'audio'))return payload;
+   lastError=new Error('No media in this response; checking the other preview source');
+  }catch(error){lastError=error}
+ }
  throw lastError||new Error('Preview service unavailable');
 }
-async function loadTrackPreview(item){const request=++audioRequest,audio=document.getElementById('track-audio'),button=document.getElementById('audio-toggle'),status=document.getElementById('audio-status');button.disabled=true;button.textContent='Loading…';status.textContent='Finding audio preview…';audio.pause();audio.removeAttribute('src');audio.load();try{const payload=await fetchCosmeticMedia(item),cosmetic=payload.data||payload,media=cosmetic.media||cosmetic;const url=findMedia(media,'audio')||findMedia(cosmetic,'audio');if(request!==audioRequest)return;if(!url)throw new Error('No audio preview is published for this track right now');audio.src=url;audio.load();await audio.play();button.disabled=false;button.textContent='Ⅱ Pause Preview';status.textContent='30-second preview';}catch(error){if(request!==audioRequest)return;button.disabled=false;button.textContent='▶ Play Preview';status.textContent=error.message||'Preview unavailable';}}
+async function loadTrackPreview(item){const request=++audioRequest,audio=document.getElementById('track-audio'),button=document.getElementById('audio-toggle'),status=document.getElementById('audio-status');button.disabled=true;button.textContent='Loading…';status.textContent='Finding audio preview…';audio.pause();audio.removeAttribute('src');audio.load();try{const payload=await fetchCosmeticMedia(item),cosmetic=payload.data||payload,media=cosmetic.media||cosmetic;const url=findMedia(media,'audio');if(request!==audioRequest)return;if(!url)throw new Error('No audio preview is published for this track right now');audio.src=url;audio.load();await audio.play();button.disabled=false;button.textContent='Ⅱ Pause Preview';status.textContent='30-second preview';}catch(error){if(request!==audioRequest)return;button.disabled=false;button.textContent='▶ Play Preview';status.textContent=error.message||'Preview unavailable';}}
 async function loadVideoPreview(item){
  const request=++mediaRequest,section=document.getElementById('media-preview'),player=document.getElementById('media-player'),status=document.getElementById('media-status');
  section.hidden=false;document.getElementById('media-title').textContent='VIDEO PREVIEW';status.textContent='Loading official preview…';player.innerHTML='<div class="media-empty">Looking for this cosmetic’s preview video…</div>';
  try{
   const payload=await fetchCosmeticMedia(item),cosmetic=payload.data||payload,media=cosmetic.media||cosmetic;
   if(request!==mediaRequest)return;
-  const videoUrl=findMedia(media,'video')||findMedia(cosmetic,'video'),youtubeId=findYoutubeId(media)||findYoutubeId(cosmetic);
+  const videoUrl=findMedia(media,'video'),youtubeId=findYoutubeId(media);
   player.innerHTML='';
-  if(videoUrl){const video=document.createElement('video');video.controls=true;video.playsInline=true;video.preload='metadata';video.src=videoUrl;player.appendChild(video);status.textContent='Preview available';}
+  if(videoUrl){const video=document.createElement('video');video.controls=true;video.playsInline=true;video.preload='none';video.poster=getImage(item);video.src=videoUrl;player.appendChild(video);status.textContent='Preview available';}
   else if(youtubeId){const frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/'+youtubeId;frame.title=text(item.name)+' preview';frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';frame.allowFullscreen=true;player.appendChild(frame);status.textContent='Preview available';}
   else{player.innerHTML='<div class="media-empty">A video preview is not available for this item right now. Some cosmetics do not have a published showcase video.</div>';status.textContent='No preview available';}
  }catch(error){if(request!==mediaRequest)return;player.innerHTML='<div class="media-empty">Could not load this video preview right now. You can still view the cosmetic artwork above.</div>';status.textContent='Preview unavailable';}
