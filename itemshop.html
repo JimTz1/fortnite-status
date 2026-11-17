@@ -122,7 +122,8 @@ h1{font-size:clamp(30px,4vw,42px);letter-spacing:-1.4px;background:none;color:#f
 <footer>Fan-made Fortnite Status Website · <a href="https://itemshop.gg" target="_blank" rel="noopener" style="color:#91a0b8">Data from itemshop.gg</a></footer>
 <script>
 const message=document.getElementById('message'),shop=document.getElementById('shop'),search=document.getElementById('search'),sort=document.getElementById('sort'),count=document.getElementById('count');
-let allItems=[],activeFilter='all',activeView='all',audioRequest=0;\nconst shopRoot=document.documentElement;
+let allItems=[],activeFilter='all',activeView='all',audioRequest=0;
+const shopRoot=document.documentElement;
 const text=(v)=>typeof v==='string'?v:'';
 const getImage=item=>item?.images?.card||item?.images?.render||item?.images?.icon||item?.image||item?.contents?.[0]?.image||'';
 const getPrice=item=>item?.price?.label||(item?.price?.amount!=null?item.price.amount+' V-Bucks':'Price unavailable');
