@@ -145,7 +145,7 @@ groups.forEach((groupItems,groupName)=>{const heading=document.createElement('h2
 function getBundleContents(item){const candidates=[item.bundleItems,item.contents,item.items,item.grants,item.offerItems,item.cosmetics,item.bundle?.items];for(const value of candidates)if(Array.isArray(value)&&value.length)return value;return []}
 function field(...values){for(const value of values){if(value===0)return '0';if(typeof value==='string'&&value.trim())return value;if(typeof value==='number'&&Number.isFinite(value))return String(value)}return '—'}
 function dateValue(value){if(!value)return '—';const date=new Date(value);return Number.isNaN(date.getTime())?String(value):date.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}
-function isJamTrack(item){return /jam\s*track|music|track/i.test(getType(item)+' '+text(item.name))}
+function isJamTrack(item){const type=getType(item),section=text(item._section),subtype=text(item.subType||item.subtype||item.gameplayTags||item.category);return /\bjam\s*track\b/i.test(type+' '+section+' '+subtype)}
 function isVideoCosmetic(item){return /outfit|skin|back\s*bling|backpack|pickaxe|emote/i.test(getType(item)+' '+text(item.name))&&!isJamTrack(item)}
 function findMedia(value,kind,depth=0,context=''){
  if(!value||depth>7)return '';
