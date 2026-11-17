@@ -157,7 +157,7 @@ h1{font-size:clamp(30px,4vw,42px);letter-spacing:-1.4px;background:none;color:#f
     <div class="history" id="history" hidden><h3>Shop appearances</h3><div class="history-list" id="history-list"></div></div>
   </div>
 </div>
-<footer>Fan-made Fortnite Status Website · <a href="https://itemshop.gg" target="_blank" rel="noopener" style="color:#91a0b8">Data from itemshop.gg</a></footer>
+<footer>Fan-made Fortnite Status Website · <a id="data-source-link" href="https://itemshop.gg" target="_blank" rel="noopener" style="color:#91a0b8">Data from itemshop.gg</a></footer>
 <script>
 const message=document.getElementById('message'),shop=document.getElementById('shop'),search=document.getElementById('search'),sort=document.getElementById('sort'),count=document.getElementById('count');
 let allItems=[],activeFilter='all',activeView='all',audioRequest=0,mediaRequest=0,shopRefreshAt=null,yesterdayItemKeys=null,currentShopDate='';
@@ -442,7 +442,65 @@ function inspect(item){
 function closeModal(){audioRequest++;mediaRequest++;const audio=document.getElementById('track-audio');audio.pause();audio.removeAttribute('src');audio.load();document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
 document.getElementById('audio-toggle').addEventListener('click',()=>{const audio=document.getElementById('track-audio');if(!audio.src){const item=allItems.find(x=>text(x.name)===document.getElementById('modal-name').textContent);if(item)loadTrackPreview(item)}else toggleTrackAudio()});document.getElementById('track-audio').addEventListener('ended',()=>{document.getElementById('audio-toggle').textContent='▶ Play Preview'});document.getElementById('close').addEventListener('click',closeModal);document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 search.addEventListener('input',render);sort.addEventListener('change',render);document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b===button));activeFilter=button.dataset.filter;render()}));document.querySelectorAll('.shop-tab').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.shop-tab').forEach(b=>b.classList.toggle('active',b===button));activeView=button.dataset.view;render()}));document.getElementById('settings-toggle').addEventListener('click',()=>{const panel=document.getElementById('settings-panel');panel.hidden=!panel.hidden});document.getElementById('card-size').addEventListener('input',e=>{shopRoot.style.setProperty('--card-width',e.target.value+'px')});document.getElementById('hide-tags').addEventListener('change',e=>{document.querySelectorAll('.tag').forEach(el=>el.style.display=e.target.checked?'none':'')});document.getElementById('hide-prices').addEventListener('change',e=>{document.querySelectorAll('.price').forEach(el=>el.style.display=e.target.checked?'none':'')});document.getElementById('hide-ratings').addEventListener('change',e=>{document.querySelectorAll('.item-rating').forEach(el=>el.style.display=e.target.checked?'none':'')});document.getElementById('hide-non-br').addEventListener('change',e=>{document.querySelectorAll('.item').forEach(el=>{const item=allItems.find(x=>text(x.name)===el.querySelector('h3')?.textContent);if(item)el.style.display=e.target.checked&&/rocket|festival|lego/i.test(text(item._section))?'none':''})});document.getElementById('hide-titles').addEventListener('change',e=>{document.querySelectorAll('.item h3').forEach(el=>el.style.display=e.target.checked?'none':'')});
-async function loadShop(){message.hidden=false;message.textContent='Loading Item Shop…';shop.innerHTML='';try{const response=await fetch('https://itemshop.gg/api/v1/shop/fortnite',{headers:{Accept:'application/json'}});if(!response.ok)throw new Error('Shop API returned '+response.status);const result=await response.json();const sections=result.data?.sections;if(!Array.isArray(sections))throw new Error(result.error?.message||'Unexpected shop data format');shopRefreshAt=result.data?.expiresAt||null;currentShopDate=result.data?.shopDate||new Date().toISOString().slice(0,10);loadYesterdaySnapshot(currentShopDate);allItems=flatten(sections);saveTodaySnapshot();if(!allItems.length){message.textContent='No shop items were found.';count.textContent='0 items';return}render();updateFeatureHub();loadCommunityVotes().then(renderVoteLeaderboard)}catch(error){console.error('Item Shop error:',error);message.hidden=false;message.textContent='Couldn’t load the Item Shop. Please try again later.';count.textContent='Shop unavailable';const retry=document.createElement('button');retry.id='retry';retry.textContent='Try Again';retry.addEventListener('click',loadShop);message.appendChild(document.createElement('br'));message.appendChild(retry)}}
+function normalizeFallbackShop(payload){
+ const offers=Array.isArray(payload?.data)?payload.data:[];
+ if(!offers.length)return null;
+ const groups=new Map();
+ offers.forEach(offer=>{
+  const title=String(offer.section||'ITEM SHOP');
+  if(!groups.has(title))groups.set(title,[]);
+  const rawPrice=offer.price;
+  const amount=typeof rawPrice==='number'?rawPrice:Number(rawPrice);
+  groups.get(title).push({
+   id:offer.id||offer.name,itemKey:offer.id||offer.name,name:offer.name||'Fortnite Cosmetic',type:offer.bundle?'Bundle':(offer.items?.[0]?.type||'Cosmetic'),
+   rarity:offer.rarity?{name:String(offer.rarity)}:null,
+   price:{amount:Number.isFinite(amount)?amount:null,label:Number.isFinite(amount)?null:String(rawPrice??'Price unavailable')},
+   images:{card:offer.image||'',render:offer.image||''},
+   badge:offer.banner||null,
+   availability:{from:offer.inDate||null,until:offer.outDate||null},
+   contents:Array.isArray(offer.items)?offer.items.map(entry=>({id:entry.id,name:entry.name,type:entry.type,image:entry.image||''})):[],
+   releaseDate:offer.inDate||null
+  });
+ });
+ return {sections:[...groups.entries()].map(([title,items])=>({title,items})),shopDate:payload.date||new Date().toISOString().slice(0,10),expiresAt:null};
+}
+async function requestShop(url){
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),12000);
+ try{const response=await fetch(url,{headers:{Accept:'application/json'},signal:controller.signal});if(!response.ok)throw new Error('Shop API returned '+response.status);return await response.json()}
+ finally{clearTimeout(timeout)}
+}
+async function loadShop(){
+ message.hidden=false;message.textContent='Loading Item Shop…';shop.innerHTML='';
+ const sources=[
+  {url:'https://itemshop.gg/api/v1/shop/fortnite',name:'itemshop.gg'},
+  {url:'https://9ntyapi.com/api/v1/shop',name:'9NTY'}
+ ];
+ let lastError=null,shopData=null,sourceName='';
+ for(const source of sources){
+  try{
+   const payload=await requestShop(source.url);
+   const data=source.name==='itemshop.gg'?payload.data:normalizeFallbackShop(payload);
+   if(!data||!Array.isArray(data.sections))throw new Error('Unexpected shop data format');
+   shopData=data;sourceName=source.name;break;
+  }catch(error){lastError=error;console.warn(source.name+' shop source failed:',error)}
+ }
+ if(!shopData){
+  console.error('Item Shop error:',lastError);
+  message.hidden=false;message.textContent='Couldn’t load the Item Shop from either data source. Please check your connection and try again.';
+  count.textContent='Shop unavailable';
+  const retry=document.createElement('button');retry.id='retry';retry.textContent='Try Again';retry.addEventListener('click',loadShop);
+  message.appendChild(document.createElement('br'));message.appendChild(retry);return;
+ }
+ shopRefreshAt=shopData.expiresAt||null;
+ currentShopDate=shopData.shopDate||new Date().toISOString().slice(0,10);
+ loadYesterdaySnapshot(currentShopDate);
+ allItems=flatten(shopData.sections);
+ saveTodaySnapshot();
+ const sourceLink=document.getElementById('data-source-link');
+ if(sourceLink){sourceLink.href=sourceName==='itemshop.gg'?'https://itemshop.gg':'https://9ntyapi.com';sourceLink.textContent='Data from '+sourceName}
+ if(!allItems.length){message.hidden=false;message.textContent='No shop items were found.';count.textContent='0 items';return}
+ render();updateFeatureHub();loadCommunityVotes().then(renderVoteLeaderboard);
+}
 updateCountdowns();setInterval(updateCountdowns,1000);
 loadShop();
 </script>
